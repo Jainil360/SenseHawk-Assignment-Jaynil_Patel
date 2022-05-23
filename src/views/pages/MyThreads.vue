@@ -78,15 +78,15 @@
 
                 <v-row align="center" justify="center">
                   <v-col align="center">
-                    <v-textarea
-                      outlined
-                      class="neu-card-in pt-5 pl-5 pr-5"
-                      v-model="editedItem.body"
+                    <div
+                      contenteditable="true"
+                      class="neu-card-in pt-5 pl-5 pr-5 text-left"
+                      style="min-height: 200px"
                       v-html="editedItem.body"
                       name="input-7-4"
                       label="Blog Body"
-                    >
-                    </v-textarea>
+                      @focusout="updateBody"
+                    ></div>
                   </v-col>
                 </v-row>
                 <v-row align="center">
@@ -263,6 +263,7 @@ export default {
 
     var query = db.collection("Blogs");
     query = query.where("createdBy", "==", this.user.data.uid);
+
     query.onSnapshot((snapshot) => {
       snapshot.docChanges().forEach((change) => {
         if (change.type === "added") {
@@ -300,6 +301,9 @@ export default {
   },
 
   methods: {
+    updateBody(e) {
+      this.editedItem.body = e.target.innerHTML;
+    },
     async writeBlog() {
       if (this.editedItem.title == "") {
         this.$swal.fire({

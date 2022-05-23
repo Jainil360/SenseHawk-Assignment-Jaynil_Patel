@@ -141,30 +141,7 @@ export default {
           this.loading = false;
           // redirect to other page javascript
           this.$router.replace("/my-threads");
-          // this.$swal
-          //   .fire({
-          //     icon: "success",
-          //     title: "Login Successful",
 
-          //     confirmButtonText: "Continue",
-
-          //     confirmButtonColor: "#08a88a",
-          //   })
-          //   .then(() => {
-          //     // this.$refs.file.click();
-          //     window.location.reload();
-          //   });
-          // setTimeout(() => {
-          // }, 1000);
-
-          // this.$router.replace("my-threads");
-
-          // window.location.reload();
-
-          // window.location.reload();
-
-          // // this.$router.push("my-threads");
-          // this.$router.replace("/my-threads");
           // //reload page after router replace
 
           // // this.$router.push("/my-threads");

@@ -149,21 +149,6 @@
           <span class="me-2"> Already have an account? </span>
           <router-link :to="{ name: 'login' }"> Sign in instead </router-link>
         </v-card-text>
-
-        <!-- divider -->
-        <!-- <v-card-text class="d-flex align-center mt-2">
-          <v-divider></v-divider>
-          <span class="mx-5">or</span>
-          <v-divider></v-divider>
-        </v-card-text>
-
-        <v-card-actions class="d-flex justify-center">
-          <v-btn v-for="link in socialLink" :key="link.icon" icon class="ms-1">
-            <v-icon :color="$vuetify.theme.dark ? link.colorInDark : link.color">
-              {{ link.icon }}
-            </v-icon>
-          </v-btn>
-        </v-card-actions> -->
       </div>
     </div>
   </div>

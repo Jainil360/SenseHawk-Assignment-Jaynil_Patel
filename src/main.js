@@ -7,6 +7,7 @@ import router from './router'
 import store from './store'
 import firebase from "firebase/compat/app"
 
+
 import "firebase/compat/analytics";
 import VueSweetalert2 from 'vue-sweetalert2'; 
 import VueConfetti from 'vue-confetti'

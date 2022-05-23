@@ -82,6 +82,7 @@
                       outlined
                       class="neu-card-in pt-5 pl-5 pr-5"
                       v-model="editedItem.body"
+                      v-html="editedItem.body"
                       name="input-7-4"
                       label="Blog Body"
                     >

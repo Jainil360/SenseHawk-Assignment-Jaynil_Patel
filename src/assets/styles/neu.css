@@ -1,0 +1,90 @@
+.neu-card-out {
+  border-radius: 40px;
+  background: #EEEEEE;
+  box-shadow:  8px 8px 16px #d1d1d1,
+               -8px -8px 16px #ffffff;
+  }
+
+  .neu-card-out-default {
+    border-radius: 10px;
+    background: #EEEEEE;
+    box-shadow:  8px 8px 16px #d1d1d1,
+                 -8px -8px 16px #ffffff;
+    }
+
+  .neu-card-out-sidebar {
+    background: #EEEEEE;
+    box-shadow:  -5px 5px 23px #77858c,
+                 5px -5px 23px #ddf7ff;
+  }
+
+  .neu-card-in {
+    border-radius: 10px;
+    background: #EEEEEE;
+    box-shadow: inset 8px 8px 16px #d1d1d1,
+                inset -8px -8px 16px #ffffff;
+  }
+  .neu-card-in-default {
+    border-radius: 40px;
+    background: #EEEEEE;
+    box-shadow: inset 8px 8px 16px #d1d1d1,
+                inset -8px -8px 16px #ffffff;
+  }
+
+/* 
+  .neu-card-out:hover {
+    background: #242b5b;
+    box-shadow: inset 5px 5px 10px #1b2145, inset -5px -5px 10px #2d3571;
+  }
+   */
+
+  
+  /* .neu-card-in:hover {
+    background: #242b5b;
+    box-shadow: 5px 5px 10px #1b2145, -5px -5px 10px #2d3571;
+  } */
+  
+  .neu-out-btn {
+
+    border-radius: 10px;
+    background: #08a88a;
+    color: #EEEEEE;
+   
+    padding: 10px;
+    justify-content: center;
+  }
+
+  .neu-out-btn:hover {
+   background: #1d1f33;
+ 
+  }
+
+  .neu-out-search-btn {
+    border-radius: 10px;
+    background: #242b5b;
+    border: #0677cb solid 1px;
+    
+    height: 40px;
+    color: #0677cb;
+    justify-content: center;
+    box-shadow: 5px 5px 10px #1b2145, -5px -5px 10px #2d3571;
+  }
+
+  .neu-out-search-btn:hover {
+    color: #0677cb;
+    box-shadow: inset 5px 5px 10px #1b2145, inset -5px -5px 10px #2d3571;
+  }
+ 
+  .neu-in-btn {
+    border-radius: 10px;
+    background: #242b5b;
+    
+    height: 40px;
+    color: #0677cb;
+    justify-content: center;
+    box-shadow: inset 5px 5px 10px #1b2145, inset -5px -5px 10px #2d3571;
+
+  }
+
+ 
+

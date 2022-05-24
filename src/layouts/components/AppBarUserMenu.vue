@@ -17,7 +17,7 @@
         dot
       >
         <v-avatar size="40px" v-bind="attrs" v-on="on">
-          <v-img :src="require('@/assets/images/avatars/1.png')"></v-img>
+          <v-img :src="imgUrl"></v-img>
         </v-avatar>
       </v-badge>
     </template>
@@ -40,12 +40,12 @@
           class="d-inline-flex flex-column justify-center ms-3"
           style="vertical-align: middle"
         >
-          <span class="text--primary font-weight-semibold text-caption mb-n1"> {{userName}}</span>
+          <span class="text--primary font-weight-semibold text-caption mb-n1">
+            {{ userName }}</span
+          >
           <small class="text--disabled text-capitalize">Author</small>
         </div>
       </div>
-
- 
 
       <!-- Logout -->
       <v-list-item link v-on:click="signOut()">
@@ -79,6 +79,10 @@ import {
 export default {
   props: {
     userName: {
+      type: String,
+      default: "",
+    },
+    imgUrl: {
       type: String,
       default: "",
     },

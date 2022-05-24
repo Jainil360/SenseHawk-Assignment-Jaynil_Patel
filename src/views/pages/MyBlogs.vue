@@ -123,7 +123,10 @@
         <button class="neu-card-out-default pa-3" @click="routeToHighlightedWords">
           <span class="subtitle text-lowercase ml-2">Highlighted Words</span>
         </button>
-        <app-bar-user-menu :userName="user.data.displayName"></app-bar-user-menu>
+        <app-bar-user-menu
+          :userName="user.data.displayName"
+          :imgUrl="user.data.photoURL"
+        ></app-bar-user-menu>
       </v-col>
     </v-row>
 
@@ -259,7 +262,6 @@ export default {
   },
 
   mounted() {
-    alert("hello");
     this.user = this.$store.getters.user;
 
     // this.loadBlogs();
@@ -304,6 +306,7 @@ export default {
   },
 
   methods: {
+    getImageUrl() {},
     highLightText() {
       var range = document.createRange();
       var sel = this.selection;
@@ -460,81 +463,6 @@ export default {
           status: "Pending",
         });
       }
-    },
-    changeStatus(item) {
-      if (item.progress == 100) {
-        alert("Progress is 100%");
-        db.collection("Blogs").doc(item.id).update({
-          status: "Completed",
-        });
-      } else {
-        db.collection("Blogs")
-          .doc(item.id)
-          .update({
-            status: item.status == "Pending" ? "In Progress" : "Pending",
-          });
-      }
-    },
-
-    loadBlogs() {
-      this.BlogsList = [];
-      var query = db.collection("Blogs");
-      // query = query.where("uid", "==", this.user.data.uid);
-      // query = query.where("shortCutType", "==", "customShortcut");
-      query
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            var obj = Object.assign(doc.data(), { id: doc.id });
-            this.BlogsList.push(obj);
-          });
-          console.log("Document fetched successfully!");
-        })
-        .catch((error) => {
-          console.error("Error writing document: ", error);
-        });
-    },
-    getUserDetails(obj) {
-      var workingString = [];
-      console.log(obj);
-      obj.to.forEach((item) => {
-        console.log("item", item);
-        console.log("working", obj["timeStats_" + `${item}`].working);
-        if (obj["timeStats_" + `${item}`].working) {
-          this.allUsers.forEach((user) => {
-            console.log("user", user.uid);
-            if (item == user.uid) {
-              workingString.push(user.name);
-            }
-          });
-        }
-      });
-      return workingString;
-    },
-
-    getByUserImages(byList) {
-      console.log(byList);
-      var images = [];
-      byList.forEach((item) => {
-        this.allUsers.forEach((user) => {
-          if (item == user.uid) {
-            images.push(user.profilePic);
-          }
-        });
-      });
-      return images;
-    },
-    getToUserImages(byList) {
-      console.log(byList);
-      var images = [];
-      byList.forEach((item) => {
-        this.allUsers.forEach((user) => {
-          if (item == user.uid) {
-            images.push(user.profilePic);
-          }
-        });
-      });
-      return images;
     },
 
     loadAllUsers() {

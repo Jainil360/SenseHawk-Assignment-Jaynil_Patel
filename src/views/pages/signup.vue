@@ -247,13 +247,27 @@ export default {
                 .auth()
                 .currentUser.updateProfile({
                   displayName: this.name,
+                  photoURL: this.imageURL,
                 })
                 .then(() => {
                   console.log("User updated", data.user);
-                  this.$store.commit("SET_USER", userTemp);
+                  // this.$store.commit("SET_USER", userTemp);
                   this.loading = false;
 
                   this.$router.replace({ name: "my-blogs" });
+                  this.$swal
+                    .fire({
+                      icon: "success",
+                      title: "Successfully Signed Up",
+                      confirmButtonText: "Continue",
+
+                      confirmButtonColor: "#08a88a",
+                    })
+                    .then((result) => {
+                      if (result.isConfirmed) {
+                        window.location.reload();
+                      }
+                    });
                 })
                 .catch((error) => {
                   console.log(error);

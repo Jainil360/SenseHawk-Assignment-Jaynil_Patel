@@ -85,7 +85,7 @@ export default {
         .signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
           this.loading = false;
-          this.$router.replace("/my-blogs");
+          this.$router.replace("my-blogs");
         })
         .catch((error) => {
           alert(error.message);

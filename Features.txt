@@ -15,6 +15,8 @@ Notes:
 - For auth Firebase auth is used 
 - This site is hosted on Netlify
 - You can find github repo at :
+- logo canva
+- gif from lordicon
 
 - Used Vuex to store loggedIn user data
 

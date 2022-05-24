@@ -1,34 +1,13 @@
 <template>
   <div class="pa-4">
-    <v-row align="center">
+    <v-row align="center" justify="center">
       <v-col
-        sm="6"
-        xs="6"
-        md="6"
+        sm="12"
+        xs="12"
+        md="12"
         cols="12"
-        lg="6"
+        lg="4"
         class="text-center text-lg-start text-md-start text-xl-start"
-      >
-        <!-- <h3>{{ user.data.name }}</h3> -->
-        <!-- <span class="text-lg-h5 text-xl-h5 text-h6 text-sm-h6">
-          <v-icon color="success">mdi-file-tree</v-icon>
-          <span class="font-weight-bold">My Space</span>
-        </span>1 -->
-        <v-img
-          :src="require('@/assets/images/logos/logo.svg')"
-          alt="logo"
-          max-width="200"
-          max-height="60"
-        ></v-img>
-      </v-col>
-
-      <v-col
-        class="text-center text-lg-end text-md-end text-xl-end"
-        sm="6"
-        xs="6"
-        md="6"
-        cols="12"
-        lg="6"
       >
         <v-dialog v-model="dialog" overlay-opacity="0.8" max-width="80%">
           <template v-slot:activator="{ on, attrs }">
@@ -79,14 +58,19 @@
                 <v-row align="center" justify="center">
                   <v-col align="center">
                     <div
-                      contenteditable="true"
-                      class="neu-card-in pt-5 pl-5 pr-5 text-left"
-                      style="min-height: 200px"
+                      contenteditable
+                      placeholder="Blog Content"
+                      class="neu-card-in pt-5 pl-5 pr-5 text-left div-textarea1"
                       v-html="editedItem.body"
                       name="input-7-4"
                       label="Blog Body"
                       @focusout="updateBody"
+                      id="div-textarea"
+                      @mouseup="getSelectedText"
                     ></div>
+                    <span class="popup-tag" v-on:click="highLightText()">
+                      <v-icon color="accent" class="pa-1"> mdi-marker</v-icon>
+                    </span>
                   </v-col>
                 </v-row>
                 <v-row align="center">
@@ -108,25 +92,38 @@
             </v-card-text>
           </v-card>
         </v-dialog>
-        <app-bar-user-menu :userName="user.data.email"></app-bar-user-menu>
+      </v-col>
+      <v-col
+        sm="6"
+        xs="6"
+        md="6"
+        cols="12"
+        lg="4"
+        justify="center"
+        align="center"
+        class="text-center text-lg-center text-md-center text-xl-center"
+      >
+        <v-img
+          :src="require('@/assets/images/logos/logo.svg')"
+          alt="logo"
+          max-width="250"
+          max-height="60"
+          class="mx-auto"
+        ></v-img>
+      </v-col>
 
-        <v-dialog v-model="dialogDelete" max-width="500px">
-          <v-card>
-            <v-card-title
-              >Are you sure you want to delete
-              <b class="primary--text ml-1 mr-1"> {{ editedItem.shortCutKey }} </b>
-              shortcut?</v-card-title
-            >
-            <v-card-actions>
-              <v-spacer></v-spacer>
-
-              <v-btn color="success" @click="closeDelete">No</v-btn>
-
-              <v-btn color="error" @click="deleteBlogsFirebase">Yes</v-btn>
-              <v-spacer></v-spacer>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
+      <v-col
+        class="text-center text-lg-end text-md-end text-xl-end"
+        sm="12"
+        xs="12"
+        md="6"
+        cols="12"
+        lg="4"
+      >
+        <button class="neu-card-out-default pa-3" @click="routeToHighlightedWords">
+          <span class="subtitle text-lowercase ml-2">Highlighted Words</span>
+        </button>
+        <app-bar-user-menu :userName="user.data.displayName"></app-bar-user-menu>
       </v-col>
     </v-row>
 
@@ -136,8 +133,12 @@
           <div v-for="item in BlogsList" :key="item" class="">
             <v-timeline-item large class="mb-7">
               <template v-slot:icon>
-                <v-avatar color="accent" class="neu-card-out">
-                  <v-icon color="success">mdi-post</v-icon>
+                <v-avatar
+                  color="accent"
+                  class="neu-card-out"
+                  v-on:click="openBlog(item.id)"
+                >
+                  <v-icon color="success">mdi-eye</v-icon>
                 </v-avatar>
               </template>
 
@@ -239,6 +240,7 @@ export default {
     someUsers: [],
     user: null,
     ApiLoader: false,
+    selection: null,
   }),
 
   computed: {
@@ -257,6 +259,7 @@ export default {
   },
 
   mounted() {
+    alert("hello");
     this.user = this.$store.getters.user;
 
     // this.loadBlogs();
@@ -301,8 +304,55 @@ export default {
   },
 
   methods: {
+    highLightText() {
+      var range = document.createRange();
+      var sel = this.selection;
+      //The word shouldn’t contain any characters other than alphanumeric [a-z][0-9][A-Z] to be highlighted allow spaces.
+      var re = /[^a-zA-Z0-9\s]/g;
+      // var re = /[^a-zA-Z0-9]/g;
+      if (sel.toString().trim().match(re)) {
+        this.$swal.fire({
+          title: "Invalid Selection",
+          text:
+            "Highlighted text shouldn’t contain any characters other than alphanumeric [a-z][0-9][A-Z]",
+          icon: "error",
+          confirmButtonText: "Ok",
+        });
+      }
+
+      range.setStart(sel.anchorNode, sel.anchorOffset);
+      range.setEnd(sel.focusNode, sel.focusOffset);
+
+      if (range) range.surroundContents(document.createElement("mark"));
+      this.editedItem.body = document.getElementById("div-textarea").innerHTML;
+
+      $("span.popup-tag").css("display", "none");
+      this.selection = null;
+    },
+    getSelectedText(e) {
+      var sel;
+      if (window.Selection) {
+        sel = window.getSelection();
+        if (sel.rangeCount) {
+          if (sel.toString().length > 0) {
+            this.selection = sel;
+            sel = sel.toString().trim();
+
+            $("span.popup-tag").css("display", "block");
+            $("span.popup-tag").css("top", e.clientY);
+            $("span.popup-tag").css("left", e.clientX);
+          } else {
+            $("span.popup-tag").css("display", "none");
+          }
+        }
+      }
+    },
+    hideToolbar() {
+      $("span.popup-tag").css("display", "none");
+    },
     updateBody(e) {
       this.editedItem.body = e.target.innerHTML;
+      // this.hideToolbar();
     },
     async writeBlog() {
       if (this.editedItem.title == "") {
@@ -330,7 +380,7 @@ export default {
             {
               headers: {
                 Authorization:
-                  "Bearer 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",
+                  "Bearer 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",
               },
             }
           )
@@ -588,6 +638,15 @@ export default {
     formattedTime1(difference) {
       return formatTimeTaken(difference);
     },
+    routeToHighlightedWords() {
+      let routeData = this.$router.resolve({ name: "highlightedWords" });
+      window.open(routeData.href, "_blank");
+    },
+
+    openBlog(id) {
+      let routeData = this.$router.resolve({ name: "blog", params: { id: id } });
+      window.open(routeData.href, "_blank");
+    },
   },
 };
 </script>
@@ -603,5 +662,28 @@ export default {
 }
 .v-slider__track {
   border-radius: 100px !important;
+}
+
+.popup-tag {
+  position: fixed;
+  display: none;
+  background-color: #08a88a;
+  color: #eeeeee;
+  border-radius: 10px;
+
+  padding: 5px;
+  font-size: 20px;
+  cursor: pointer;
+  -webkit-filter: drop-shadow(0 1px 10px rgba(113, 158, 206, 0.8));
+}
+
+.div-textarea1 {
+  min-height: 200px;
+}
+[contenteditable][placeholder]:empty:before {
+  content: attr(placeholder);
+  position: fixed;
+  color: gray;
+  background-color: transparent;
 }
 </style>

@@ -8,17 +8,17 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: 'my-threads',
+    redirect: 'my-blogs',
   },
   {
-    path: '/my-threads',
-    name: 'my-threads',
+    path: '/my-blogs',
+    name: 'my-blogs',
     meta: {
       layout: 'blank',
     },
     meta: { requiresAuth: true },
 
-    component: () => import('@/views/pages/MyThreads.vue'),
+    component: () => import('@/views/pages/MyBlogs.vue'),
    
   },
   
@@ -30,6 +30,23 @@ const routes = [
       layout: 'blank',
     },
   },
+  {
+    path: '/highlightedWords',
+    name: 'highlightedWords',
+    component: () => import('@/views/pages/HighlightedWords.vue'),
+    meta: {
+      layout: 'blank',
+    },
+  },
+  {
+    path: '/blog/:id',
+    name: 'blog',
+    component: () => import('@/views/pages/BlogPage.vue'),
+    meta: {
+      layout: 'blank',
+    },
+  },
+  
   {
     path: '/login',
     name: 'login',

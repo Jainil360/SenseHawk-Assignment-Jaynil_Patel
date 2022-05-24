@@ -144,7 +144,6 @@
           </v-form>
         </v-card-text>
 
-        <!-- create new account  -->
         <v-card-text class="d-flex align-center justify-center flex-wrap mt-2">
           <span class="me-2"> Already have an account? </span>
           <router-link :to="{ name: 'login' }"> Sign in instead </router-link>
@@ -169,18 +168,10 @@ export default {
       image: "",
       imageURL: "",
       uploadingFlag: false,
-      orgList: ["Technicolor - Chennai"],
       email: "",
       password: "",
       step: 1,
       loading: false,
-      socialLink: [
-        {
-          icon: "mdi-google",
-          color: "#db4437",
-          colorInDark: "#db4437",
-        },
-      ],
     };
   },
   methods: {
@@ -223,24 +214,6 @@ export default {
           this.uploadingFlag = false;
         });
       });
-      // firebase.storage
-      //   .ref("images/" + file.name)
-      //   .put(file)
-      //   .then((response) => {
-      //     alert("Uploaded Successfully");
-      //     response.ref
-      //       .getDownloadURL()
-      //       .then((downloadURL) => {
-      //         alert("File uploaded successfully");
-
-      //         // firebase
-      //         //   .database()
-      //         //   .ref(YOUR_DATABASE)
-      //         //   .child(THE_USER_ID)
-      //         //   .update({ imageUrl: downloadURL });
-      //       })
-      //       .catch((err) => console.log(err));
-      //   });
     },
     signUp() {
       var userTemp = {};
@@ -254,8 +227,9 @@ export default {
           userTemp.uid = data.user.uid;
           userTemp.name = this.name;
           userTemp.image = this.imageURL;
-          userTemp.org = this.org;
           userTemp.email = this.email;
+
+          console.log(userTemp);
 
           firebase
             .firestore()
@@ -263,35 +237,27 @@ export default {
             .add({
               name: this.name,
               profilePic: this.imageURL,
-              org: this.org,
               email: this.email,
               uid: data.user.uid,
             })
 
             .then(() => {
-              // this.$store.commit('SET_USER', {
-              //   displayName: this.name,
-              //   email: this.email,
-              // })
-              console.log("User updated", data.user);
-              this.$store.commit("SET_USER", userTemp);
-              this.loading = false;
-
-              this.$router.replace({ name: "my-threads" });
-              this.$swal
-                .fire({
-                  icon: "success",
-                  title: "Successfully Signed Up",
-                  confirmButtonText: "Continue",
-
-                  confirmButtonColor: "#08a88a",
+              //update display name
+              firebase
+                .auth()
+                .currentUser.updateProfile({
+                  displayName: this.name,
                 })
                 .then(() => {
-                  // this.$refs.file.click();
-                  window.location.reload();
+                  console.log("User updated", data.user);
+                  this.$store.commit("SET_USER", userTemp);
+                  this.loading = false;
+
+                  this.$router.replace({ name: "my-blogs" });
+                })
+                .catch((error) => {
+                  console.log(error);
                 });
-              // window.location.reload();
-              // this.$router.replace({ name: "my-threads" });
             });
         })
         .catch((err) => {

@@ -290,16 +290,18 @@ export default {
             return word !== "";
           });
         }
-        words.forEach((word) => {
-          console.log(word);
-          if (this.BlogsListHighlightedWords.indexOf(word) === -1) {
-            this.BlogsListHighlightedWords.push({
-              word: word,
-              id: item.id,
-              active: false,
-            });
-          }
-        });
+        if (words) {
+          words.forEach((word) => {
+            console.log(word);
+            if (this.BlogsListHighlightedWords.indexOf(word) === -1) {
+              this.BlogsListHighlightedWords.push({
+                word: word,
+                id: item.id,
+                active: false,
+              });
+            }
+          });
+        }
       });
     },
 

@@ -1,23 +1,29 @@
-Features Basic - Crud operation for blogs like:
+Basic Work Done - Crud operation for blogs like:
                     - Create Blog
                     - Update Blog
                     - Delete Blog
+                - Highlight word/text using popout icon
+                - Display all highlighted words/text
+                - Onclick of that word toggle blog post
+                - Click on blog post to open in new page (Using Blog Id)
 
-Features advance - Generate blog content from Blog title using Open AI API (Learn More at: https://beta.openai.com/examples )
+Extra Work/Features - Generate blog content from Blog title using Open AI API (Learn More at: https://beta.openai.com/examples)
+                    - Login / Signup using firebase
+                    - Real time blog views (Test it by refreshing blog)
+                    - Search highlighted word/text + suggetions
+                    - Upload author profilePic
+
 
 Tech Stack Used - Vue 
                 - Vuetify (vue UI library)
                 - Html, Css, Javascript
+                - vue-router
+                - vuex - to store currently logged in user data
                 - Firebase (Backend)
 
 Notes:
-- Created Blog site using vue(Front-end) and firebase(Backend)
-- For auth Firebase auth is used 
 - This site is hosted on Netlify
-- You can find github repo at :
 - logo canva
 - gif from lordicon
-
-- Used Vuex to store loggedIn user data
 
             

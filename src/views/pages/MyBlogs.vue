@@ -379,7 +379,7 @@ export default {
             },
             {
               headers: {
-                Authorization: "Bearer " + process.env.openAI,
+                Authorization: "Bearer " + process.env.VUE_APP_OPENAI,
               },
             }
           )

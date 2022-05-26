@@ -379,7 +379,7 @@ export default {
             },
             {
               headers: {
-                Authorization: "Bearer " + your_app_secret_key,
+                Authorization: "Bearer " + process.env.openAI,
               },
             }
           )

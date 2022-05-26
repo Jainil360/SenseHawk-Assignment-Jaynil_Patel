@@ -23,13 +23,38 @@ import { getMessaging,getToken } from "firebase/messaging";
 
 
 
+
+
+
 var firebaseConfig = {
- //your firebase config
+  apiKey: "AIzaSyCsTDI5rpfB3PE5AXogpCXqeMXehOsBKF0",
+  authDomain: "syncbits-90baf.firebaseapp.com",
+  projectId: "syncbits-90baf",
+  storageBucket: "syncbits-90baf.appspot.com",
+  messagingSenderId: "761234310258",
+  appId: "1:761234310258:web:f62ef76637fec0fb796eeb",
+  measurementId: "G-8FV0PMM4HW"
 };
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
+
+// Initialize Firebase Cloud Messaging and get a reference to the service
+const messaging = getMessaging(firebase.initializeApp(firebaseConfig));
+getToken(messaging, { vapidKey: 'BJ_OoGsF3bguBoR1jdH6PfwFKrEpZpRB5i3TGHJYDxqmnakwT4m4KnZ1N-rfLD0pSuU_LF_XlyyS9Seu9r7E66M' }).then((currentToken) => {
+  if (currentToken) {
+    // Send the token to your server and update the UI if necessary
+    // ...
+  } else {
+    // Show permission request UI
+    console.log('No registration token available. Request permission to generate one.');
+    // ...
+  }
+}).catch((err) => {
+  console.log('An error occurred while retrieving token. ', err);
+  // ...
+});
 
 
 Vue.config.productionTip = false

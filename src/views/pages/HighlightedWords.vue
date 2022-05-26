@@ -230,6 +230,7 @@ export default {
   },
 
   methods: {
+    // Filtering the blog list based on the highlighted words.
     filterBySearchWords() {
       this.BlogsListHighlightedWords.forEach((item) => {
         if (
@@ -240,6 +241,7 @@ export default {
         }
       });
     },
+    // Filtering the blog list based on the highlighted words.
     filterBlogList(item) {
       this.filterResult = [];
 
@@ -277,6 +279,7 @@ export default {
       });
     },
 
+    // Getting all the words which are wrapped in mark tag and remove mark tags and remove if it is empty.
     getHighlightedWords(blogList) {
       this.BlogsListHighlightedWords = [];
       blogList.map((item) => {

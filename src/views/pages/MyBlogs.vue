@@ -236,11 +236,7 @@ export default {
       title: "",
       body: "",
     },
-    BlogTypeList: ["Tech", "Travel", "Lifestyle"],
-    fromList: [],
-    toList: [],
-    allUsers: [],
-    someUsers: [],
+
     user: null,
     ApiLoader: false,
     selection: null,
@@ -306,7 +302,7 @@ export default {
   },
 
   methods: {
-    getImageUrl() {},
+    // Highlighting the text in the textarea.
     highLightText() {
       var range = document.createRange();
       var sel = this.selection;
@@ -332,6 +328,7 @@ export default {
       $("span.popup-tag").css("display", "none");
       this.selection = null;
     },
+    // Getting the selected text and displaying a popup tag.
     getSelectedText(e) {
       var sel;
       if (window.Selection) {
@@ -382,8 +379,7 @@ export default {
             },
             {
               headers: {
-                Authorization:
-                  "Bearer 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",
+                Authorization: "Bearer " + your_app_secret_key,
               },
             }
           )
@@ -451,43 +447,7 @@ export default {
           console.error("Error writing document: ", error);
         });
     },
-    updateProgress(item) {
-      if (item.progress == 100) {
-        db.collection("Blogs").doc(item.id).update({
-          status: "Completed",
-          progress: item.progress,
-        });
-      } else {
-        db.collection("Blogs").doc(item.id).update({
-          progress: item.progress,
-          status: "Pending",
-        });
-      }
-    },
 
-    loadAllUsers() {
-      this.allUsers = [];
-      var query = db.collection("users-tch");
-
-      query
-        .onSnapshot((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            this.allUsers.push(doc.data());
-            if (doc.data().uid != this.user.data.uid) {
-              this.someUsers.push(doc.data());
-
-              // var obj = Object.assign(doc.data(), { id: doc.id });
-            } else if (doc.data().uid == this.user.data.uid) {
-              this.fromList.push(doc.data().uid);
-            }
-            // this.allUsers.push(doc.data());
-          });
-          console.log("Document fetched successfully!");
-        })
-        .catch((error) => {
-          console.error("Error writing document: ", error);
-        });
-    },
     deleteBlogsFirebase() {
       db.collection("Blogs")
         .doc(this.editedItem.id)

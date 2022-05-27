@@ -4,7 +4,7 @@
 Create a Vue.js application that allows the user to create, read, update and delete a blog post
 with word highlighting capabilities.
 
-
+> Live Demo : [click here](https://628fa44a815b2512ec70584c--funny-pony-3e872d.netlify.app/)
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file

@@ -27,7 +27,13 @@ import { getMessaging,getToken } from "firebase/messaging";
 
 
 var firebaseConfig = {
-<your_config>
+  apiKey: "AIzaSyCsTDI5rpfB3PE5AXogpCXqeMXehOsBKF0",
+  authDomain: "syncbits-90baf.firebaseapp.com",
+  projectId: "syncbits-90baf",
+  storageBucket: "syncbits-90baf.appspot.com",
+  messagingSenderId: "761234310258",
+  appId: "1:761234310258:web:f62ef76637fec0fb796eeb",
+  measurementId: "G-8FV0PMM4HW"
 };
 
 // Initialize Firebase

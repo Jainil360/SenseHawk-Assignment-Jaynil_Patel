@@ -131,7 +131,7 @@
     </v-row>
 
     <v-row align="center" justify="center" v-if="BlogsList.length != 0">
-      <v-col cols="8">
+      <v-col cols="10">
         <v-timeline dense>
           <div v-for="item in BlogsList" :key="item" class="">
             <v-timeline-item large class="mb-7">
@@ -182,7 +182,7 @@
                 <v-card-subtitle class="mb-n1" v-html="item.body"> </v-card-subtitle>
                 <v-card-text>
                   <v-row align="center">
-                    <v-col align="start" cols="6" lg="6" xl="12" md="6" sm="12">
+                    <v-col align="start" cols="6" lg="6" xl="" md="6" sm="12">
                       <span
                         v-if="item.peopleCounter == 0"
                         class="body-1 mt-3 font-weight-bold"
